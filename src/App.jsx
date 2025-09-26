@@ -46,10 +46,22 @@ function App() {
     },
   ];
 
+  // Updated API call using ngrok
   const handleRevoke = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/revoke-access", { method: "POST" });
+      const res = await fetch(
+        "https://unsaluting-louvenia-nonsequaciously.ngrok-free.dev/block-user",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Cookie": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGQ3MTAyMDg0MDI3NzE0MDEzYTRkNjMiLCJpYXQiOjE3NTg5MjQ4MzIsImV4cCI6MTc1OTAxMTIzMn0.TyUbYDQLxJoqvw34aRT6JDhxdDrKdXKzlAd_nc2g-4c"
+          },
+          body: JSON.stringify({}) // Empty body as in your curl
+        }
+      );
+
       if (res.ok) setActionTaken("revoked");
       else setActionTaken("error");
     } catch (err) {
